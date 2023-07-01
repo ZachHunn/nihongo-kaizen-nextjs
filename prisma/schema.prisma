@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Kanji {
+  id          Int      @id @default(autoincrement())
+  character   String   @unique
+  meanings    String[]
+  onReading   String[] @map("on_reading")
+  kunReading  String[] @map("kun_reading")
+  strokeCount Int
+  jlptLevel   Int?
+  examples    String[]
+}
+
+model Vocabulary {
+  id              Int     @id @default(autoincrement())
+  word            String  @unique
+  meaning         String
+  reading         String
+  partOfSpeech    String? @map("part_of_speech")
+  exampleSentence String  @map("example_sentence")
+}
+
+enum KanaType {
+  HIRAGANA
+  KATAKANA
+}
+
+model Kana {
+  id        Int      @id @unique @default(autoincrement())
+  character String   @unique
+  reading   String
+  type      KanaType
+}
+
+enum ParticleType {
+  SUBJECT
+  TOPIC
+  OBJECT
+  INDICATIVE
+  QUOTATION
+  LISTING
+  DIRECTION
+  SOURCE
+  RANGE
+  INCLUSIVE
+  POSSESSIVE
+  CONFIRMING
+  ASSERTIVE
+  QUESTION
+  EXTENT
+}
+
+model Particle {
+  id          Int          @id @unique @default(autoincrement())
+  character   String       @unique
+  meaning     String
+  type        ParticleType
+  explanation String?
+}
