@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["extendedWhereUnique"]
 }
 
 datasource db {
@@ -36,11 +37,46 @@ enum KanaType {
   KATAKANA
 }
 
+enum KanaVowelRow {
+  A
+  I
+  U
+  E
+  O
+}
+
+enum KanaLine {
+  K
+  S
+  T
+  N
+  H
+  M
+  Y
+  R
+  W
+  N_M
+  G
+  Z
+  D
+  B
+  P
+}
+
+enum AdditionalCharacterType {
+  DAKUON
+  HANDAKUON
+  YOUON
+}
+
 model Kana {
-  id        Int      @id @unique @default(autoincrement())
-  character String   @unique
-  reading   String
-  type      KanaType
+  id                      Int                      @id @unique @default(autoincrement())
+  character               String                   @unique
+  reading                 String
+  type                    KanaType
+  row                     KanaVowelRow?
+  column                  KanaLine?
+  additionalCharacterType AdditionalCharacterType? @map("additional_character_type")
 }
 
 enum ParticleType {

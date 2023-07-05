@@ -8,14 +8,14 @@ type NavLinks = {
   linkText: string;
 };
 
-export const Navbar = () => {
-  const links: NavLinks[] = [
-    { href: '/Kana', linkText: 'Kana' },
-    { href: '/Kanji', linkText: 'Kanji' },
-    { href: '/Vocabulary', linkText: 'Vocabulary' },
-    { href: '', linkText: 'Grammar' },
-  ];
+const links: NavLinks[] = [
+  { href: '/Kana', linkText: 'Kana' },
+  { href: '/Kanji', linkText: 'Kanji' },
+  { href: '/Vocabulary', linkText: 'Vocabulary' },
+  { href: '/Grammar/Particles', linkText: 'Particles' },
+];
 
+export const Navbar: React.FC = () => {
   return (
     <header className="w-full flex justify-center pt-8 pb-16">
       <div className="mr-auto pl-8 text-4xl">
@@ -23,7 +23,7 @@ export const Navbar = () => {
       </div>
       <nav>
         {links.map((link) => {
-          return link.linkText !== 'Grammar' ? (
+          return link.linkText !== 'Particles' ? (
             <Link
               key={link.linkText}
               href={link.href}
@@ -37,7 +37,7 @@ export const Navbar = () => {
                 tabIndex={0}
                 className="mr-10 text-xl hover:cursor-pointer"
               >
-                {link.linkText}
+                Grammar
               </label>
               <ul
                 tabIndex={0}
@@ -45,11 +45,11 @@ export const Navbar = () => {
               >
                 <li>
                   <Link
-                    key="Particles"
-                    href={'/Grammar/Particles'}
+                    key={link.linkText}
+                    href={link.href}
                     className="mr-10 text-xl"
                   >
-                    Particles
+                    {link.linkText}
                   </Link>
                 </li>
               </ul>

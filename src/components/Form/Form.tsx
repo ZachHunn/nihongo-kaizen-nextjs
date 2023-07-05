@@ -1,19 +1,34 @@
 'use client';
 
 import React from 'react';
+import { ELanguageElement } from '@/const/enums';
 import { KanjiSection } from '@/components/Form/KanjiSection';
 import { VocabularySection } from '@/components/Form/VocabularySection';
 import { ParticleSection } from '@/components/Form/ParticleSection';
 
-const languageElements = ['Kanji', 'Vocabulary', 'Particle'];
+const languageElements: string[] = Object.values(ELanguageElement);
 export const Form = () => {
-  const [selectedElement, setSelectedElement] = React.useState<string>('Kanji');
+  const [selectedElement, setSelectedElement] = React.useState<string>(
+    ELanguageElement.KANJI
+  );
   const handleSelectedElement = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     setSelectedElement(event.target.value);
   };
-  // console.log(selectedElement);
+
+  const formSelection = () => {
+    switch (selectedElement) {
+      case ELanguageElement.KANJI:
+        return <KanjiSection />;
+      case ELanguageElement.PARTICLES:
+        return <ParticleSection />;
+      case ELanguageElement.VOCABULARY:
+        return <VocabularySection />;
+      default:
+        break;
+    }
+  };
   return (
     <>
       <label className="label pt-6">Choose Language Element:</label>
@@ -30,11 +45,7 @@ export const Form = () => {
           );
         })}
       </select>
-      <form className=" form-control  ">
-        {selectedElement === 'Kanji' && <KanjiSection />}
-        {selectedElement === 'Vocabulary' && <VocabularySection />}
-        {selectedElement === 'Particle' && <ParticleSection />}
-      </form>
+      <form className="form-control">{formSelection()}</form>
     </>
   );
 };

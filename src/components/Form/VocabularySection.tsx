@@ -2,7 +2,7 @@ import React from 'react';
 
 export const VocabularySection = () => {
   return (
-    <div>
+    <section>
       <label className="label">Word:</label>
       <input type="text" className="input input-bordered w-full max-w-xs" />
       <label className="label">Meaning:</label>
@@ -13,6 +13,6 @@ export const VocabularySection = () => {
       <input type="text" className="input input-bordered w-full max-w-xs" />
       <label className="label">Example Sentence:</label>
       <input type="text" className="input input-bordered w-full max-w-xs" />
-    </div>
+    </section>
   );
 };
